@@ -1,0 +1,47 @@
+version: '3.7'
+services:
+  frontend:
+    container_name: dashboard_frontend
+    build:
+      context: ./frontend
+    ports:
+      - "3000:3000"
+    env_file: ./frontend/.env
+
+  backend:
+    container_name: dashboard_backend
+    build:
+      context: ./backend
+    ports:
+      - "3001:3001"
+    env_file: ./backend/.env
+    environment:
+      - DATABASE_URL=postgres://postgres:postgres@postgres:5432/node-api
+    depends_on:
+      - postgres
+    # entrypoint: ["bash -c /app/docker-entrypoint.sh"]
+    networks:
+      - db
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    hostname: postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: node-api
+    # volumes:
+    #   - postgres-data:/var/lib/postgresql/data
+    restart: unless-stopped
+    networks:
+      - db
+
+networks:
+  db:
+
+# volumes:
+#   postgres-data:

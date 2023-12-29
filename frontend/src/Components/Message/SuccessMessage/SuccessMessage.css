@@ -1,0 +1,23 @@
+.success-message-container {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30%;
+  background-color: #43a047;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+  border-radius: 3px;
+}
+
+.success-message {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.success-message-text {
+  flex-grow: 1;
+}
