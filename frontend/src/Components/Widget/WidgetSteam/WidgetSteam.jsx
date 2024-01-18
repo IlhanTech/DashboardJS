@@ -7,6 +7,7 @@ const WidgetSteam = () => {
   const [games, setGames] = useState([]);
   const [selectedGame, setSelectedGame] = useState(null);
   const [playerCount, setPlayerCount] = useState(null);
+  const [num, setNum] = useState(0);
 
   const fetchGames = useCallback(async () => {
     try {
@@ -53,9 +54,10 @@ const WidgetSteam = () => {
   useEffect(() => {
     const intervalId = setInterval(() => {
       fetchPlayerCount();
-    }, 30000);
+      setNum((prevNum) => prevNum + 1);
+    }, 5000);
     return () => clearInterval(intervalId);
-  }, [selectedGame, fetchPlayerCount]);
+  }, [selectedGame, fetchPlayerCount],);
 
   return (
     <div className="widget-container">
@@ -75,6 +77,7 @@ const WidgetSteam = () => {
           ) : (
             <p className='paraf'>Chargement du nombre de joueurs...</p>
           )}
+          <p className='paraf'>Nombre de rafraîchissements : {num}</p>
         </div>
       ) : (
         <p>Jeu non sélectionné</p>

@@ -29,4 +29,8 @@ server.use('/api/steam', steamRouter)
 
 server.listen(process.env.SERVER_PORT)
 
+import aboutRouter from './routes/aboutRouter.js'
+
+server.use('/api/', aboutRouter);
+
 export default server
